@@ -1,9 +1,9 @@
 import express from "express";
-import { addCompany } from "../controllers/companyController.js";
+import { addCompany, getCompanies } from "../controllers/companyController.js";
 
 const router = express.Router();
 
-router.get("/companies");
+router.get("/companies", getCompanies);
 
 router.get("companies/:id");
 
