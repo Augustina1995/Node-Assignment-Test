@@ -54,3 +54,42 @@ export async function getCompanyById(req, res) {
         res.status(500).json({ error: "Error occured while fetching company" });
     }
 }
+
+export async function updateCompanyById(req, res) {
+    const { id } = req.params;
+    const { name, industry, location } = req.body;
+
+    if (!id) {
+        return res.status(400).json({ error: "ID is required" });
+    }
+
+    if (!name && !industry && !location) {
+        return res.status(400).json({ error: "At least one field is required to update details" });
+    }
+
+    try {
+        const company = await Company.findById(id);
+
+        if (!company) {
+            return res.status(400).json({ error: "Company not found" });
+        }
+
+        if (name) {
+            company.name = name;
+        }
+        if (industry) {
+            company.industry = industry;
+        }
+        if (location) {
+            company.location = location;
+        }
+
+        await company.save();
+
+        res.status(200).json(company);
+    } catch (error) {
+        console.log("Error updating company", error);
+
+        res.status(500).json({ error: "Error occured while updating company details" });
+    }
+}
