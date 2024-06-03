@@ -32,3 +32,13 @@ export async function addCompanyProfile(req, res) {
         res.status(500).json({ error: "Error occured while adding company profile" });
     }
 }
+
+export async function getCompanyProfiles(req, res) {
+    try {
+        const companyProfiles = await CompanyProfile.find();
+        res.status(200).json(companyProfiles);
+    } catch (error) {
+        console.log("Error fetching company profiles", error);
+        res.status(500).json({ error: "Error occured while fetching company profiles" });
+    }
+}

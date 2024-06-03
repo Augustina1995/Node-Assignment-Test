@@ -1,9 +1,9 @@
 import express from "express";
-import { addCompanyProfile } from "../controllers/companyProfileController.js";
+import { addCompanyProfile, getCompanyProfiles } from "../controllers/companyProfileController.js";
 
 const router = express.Router();
 
-router.get("/companyProfiles");
+router.get("/companyProfiles", getCompanyProfiles);
 
 router.post("/companyProfiles", addCompanyProfile);
 
