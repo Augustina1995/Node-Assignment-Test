@@ -33,3 +33,24 @@ export async function getCompanies(req, res) {
         res.status(500).json({ error: "Error occured while fetching companies" });
     }
 }
+
+export async function getCompanyById(req, res) {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).json({ error: "ID is required" });
+    }
+
+    try {
+        const company = await Company.findById(id).populate('companyProfile');
+
+        if (!company) {
+            return res.status(404).json({ error: "Company not found" });
+        }
+
+        res.status(200).json(company);
+    } catch (error) {
+        console.log("Error fetching company by ID", error);
+        res.status(500).json({ error: "Error occured while fetching company" });
+    }
+}
