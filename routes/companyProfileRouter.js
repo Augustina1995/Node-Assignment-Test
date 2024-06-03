@@ -1,5 +1,9 @@
 import express from "express";
-import { addCompanyProfile, getCompanyProfiles, updateCompanyProfileById } from "../controllers/companyProfileController.js";
+import {
+  addCompanyProfile,
+  getCompanyProfiles,
+  updateCompanyProfileById,
+} from "../controllers/companyProfileController.js";
 
 const router = express.Router();
 

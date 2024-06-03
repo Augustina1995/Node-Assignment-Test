@@ -7,7 +7,10 @@ dotenv.config();
 
 const { PORT, MONGO_URI } = process.env;
 
-mongoose.connect(MONGO_URI, { dbName: "companyManagement" }).then(() => console.log("Connected to MONGO DB")).catch(() => console.log("Failed to connect"));
+mongoose
+  .connect(MONGO_URI, { dbName: "companyManagement" })
+  .then(() => console.log("Connected to MONGO DB"))
+  .catch(() => console.log("Failed to connect"));
 
 const app = express();
 
