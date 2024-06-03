@@ -42,3 +42,41 @@ export async function getCompanyProfiles(req, res) {
         res.status(500).json({ error: "Error occured while fetching company profiles" });
     }
 }
+
+export async function updateCompanyProfileById(req, res) {
+    const { id } = req.params;
+    const { founder, foundedYear, numberOfEmployees } = req.body;
+
+    if (!id) {
+        return res.status(400).json({ error: "ID is required" });
+    }
+
+    if (!founder && !foundedYear && ! numberOfEmployees) {
+        return res.status(400).json({ error: "At least one field is required to update details" });
+    }
+
+    try {
+        const companyProfile = await CompanyProfile.findById(id);
+
+        if (!companyProfile) {
+            return res.status(404).json({ error: "Company profile not found" });
+        }
+
+        if (founder) {
+            companyProfile.founder = founder;
+        }
+        if (foundedYear) {
+            companyProfile.foundedYear = foundedYear;
+        }
+        if (numberOfEmployees) {
+            companyProfile.numberOfEmployees = numberOfEmployees;
+        }
+
+        await companyProfile.save();
+
+        res.status(200).json(companyProfile);
+    } catch (error) {
+        console.log("Error updating company profile", error);
+        res.status(500).json({ error: "Error occured while updating company profile" });
+    }
+}
